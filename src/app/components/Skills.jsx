@@ -85,7 +85,7 @@ const Skills = () => {
   }, []);
 
   return (
-    <section className="section">
+    <section  id="skills" className="section">
       <h2 className="section-title">skills and technologies</h2>
       <p className="section-subtitle">Cutting-edge tools and technologies I master</p>
 
