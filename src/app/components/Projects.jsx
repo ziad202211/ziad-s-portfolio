@@ -21,7 +21,7 @@ const projectsData = [
       "A personal finance web app to track income and expenses with categories, charts, and persistent storage. Built to practice CRUD operations and database management.",
     tech: ["Next.js"],
     liveDemo: "#",
-    github: "#",
+    github: "https://expense-tracker-final-one.vercel.app/",
   },
   {
     icon: "/images/projects/ai.png",
