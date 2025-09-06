@@ -7,7 +7,7 @@ const skillsData = [
     icon: '💻',
     title: 'Full-Stack Development',
     description: 'Building responsive and dynamic web applications from frontend to backend',
-    tech: ['HTML', 'CSS', 'JavaScript', 'React.js', 'Next.js', 'PHP', 'Laravel'],
+    tech: ['HTML', 'CSS', 'JavaScript', 'TypeScript','React.js', 'Next.js','Tailwind CSS', 'Bootstrap',  'PHP', 'Laravel'],
   },
   {
     icon: '🗄️',
@@ -39,6 +39,29 @@ const skillsData = [
     description: 'Prototyping and designing user-friendly interfaces with modern tools',
     tech: ['Figma', 'Adobe XD'],
   },
+  {
+    icon: '⚡',
+    title: 'AI Builders',
+    description: 'Exploring modern AI development tools and copilots for productivity',
+    tech: [
+      'Bolt',
+      'Mocha',
+      'Cursor',
+      'Windsurf',
+    ],
+  },
+  {
+    icon: '🧠',
+    title: 'Large Language Models (LLMs)',
+    description: 'Working with state-of-the-art LLMs for text generation, automation, and AI solutions',
+    tech: [
+      'ChatGPT',
+      'Claude',
+      'Gemini',
+      'DeepSeek',
+      'Grok',
+    ],
+  },
 ];
 
 
@@ -62,7 +85,7 @@ const Skills = () => {
   }, []);
 
   return (
-    <section id="skills" className="section">
+    <section className="section">
       <h2 className="section-title">skills and technologies</h2>
       <p className="section-subtitle">Cutting-edge tools and technologies I master</p>
 
