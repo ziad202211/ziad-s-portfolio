@@ -126,7 +126,7 @@ body {
 /* Navbar */
 .navbar {
   position: fixed;
-  top: 30px;
+  top: 15px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 1000;
@@ -1249,7 +1249,7 @@ body {
 @media (max-width: 768px) {
   .navbar {
     height: 60px;
-    padding: 0 20px;
+    /* padding: 0 20px; */
   }
 }
 
