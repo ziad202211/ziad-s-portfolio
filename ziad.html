@@ -1,0 +1,1847 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ziad Mohamad - Cloud DevOps Engineer</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #00ff88;
+            --secondary: #00d4ff;
+            --accent: #ff3366;
+            --warning: #ffaa00;
+            --bg-dark: #0a0a0f;
+            --bg-darker: #050508;
+            --bg-card: #111118;
+            --text-primary: #ffffff;
+            --text-secondary: #8892b0;
+            --text-muted: #64748b;
+            --border: #1e293b;
+            --border-glow: rgba(0, 255, 136, 0.3);
+            
+            /* Tech Gradients */
+            --gradient-tech: linear-gradient(135deg, #00ff88, #00d4ff);
+            --gradient-cyber: linear-gradient(135deg, #ff3366, #ffaa00);
+            --gradient-matrix: linear-gradient(135deg, #00ff88, #002211);
+            --gradient-neon: conic-gradient(from 180deg, #00ff88, #00d4ff, #ff3366, #00ff88);
+            
+            /* Glitch Effects */
+            --glitch-1: #00ff88;
+            --glitch-2: #ff3366;
+            --glitch-3: #00d4ff;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background: var(--bg-darker);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            line-height: 1.6;
+            position: relative;
+        }
+
+        /* Matrix Background Effect */
+        .matrix-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -2;
+            background: var(--bg-darker);
+        }
+
+        .matrix-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.1;
+        }
+
+        /* Animated Grid */
+        .grid-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            opacity: 0.05;
+            background-image: 
+                linear-gradient(rgba(0, 255, 136, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 136, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+        }
+
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        /* Floating Particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: var(--primary);
+            border-radius: 50%;
+            opacity: 0.6;
+            animation: particleFloat 15s infinite linear;
+        }
+
+        @keyframes particleFloat {
+            0% {
+                transform: translateY(100vh) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.6;
+            }
+            90% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(-10vh) translateX(100px);
+                opacity: 0;
+            }
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            background: rgba(17, 17, 24, 0.8);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border);
+            border-radius: 50px;
+            padding: 15px 30px;
+            transition: all 0.3s ease;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .navbar::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 50px;
+            padding: 1px;
+            background: var(--gradient-tech);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask-composite: xor;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .navbar:hover::before {
+            opacity: 1;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 14px;
+            position: relative;
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--gradient-tech);
+            border-radius: 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .nav-links a span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--bg-dark);
+        }
+
+        .nav-links a:hover::before,
+        .nav-links a.active::before {
+            opacity: 1;
+        }
+
+        /* Terminal Loading */
+        .terminal-loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: var(--bg-darker);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            font-family: 'JetBrains Mono', monospace;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        .terminal-loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .terminal-window {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            width: 500px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .terminal-header {
+            background: var(--bg-dark);
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .terminal-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .terminal-dot.red { background: #ff5555; }
+        .terminal-dot.yellow { background: #ffaa00; }
+        .terminal-dot.green { background: #00ff88; }
+
+        .terminal-body {
+            padding: 20px;
+            min-height: 200px;
+        }
+
+        .terminal-line {
+            margin-bottom: 8px;
+            opacity: 0;
+            animation: terminalType 0.5s ease forwards;
+        }
+
+        .terminal-line::before {
+            content: '$ ';
+            color: var(--primary);
+        }
+
+        .terminal-cursor {
+            display: inline-block;
+            width: 8px;
+            height: 18px;
+            background: var(--primary);
+            margin-left: 4px;
+            animation: cursorBlink 1s infinite;
+        }
+
+        @keyframes terminalType {
+            to { opacity: 1; }
+        }
+
+        @keyframes cursorBlink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 20px;
+            position: relative;
+        }
+
+        .hero-container {
+            max-width: 1400px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 100px;
+            align-items: center;
+        }
+
+        .hero-content {
+            position: relative;
+        }
+
+        /* Glitch Text Effect */
+        .glitch-text {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            position: relative;
+            color: var(--text-primary);
+            animation: glitchText 3s infinite;
+        }
+
+        .glitch-text::before,
+        .glitch-text::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .glitch-text::before {
+            animation: glitch1 2s infinite;
+            color: var(--glitch-1);
+            z-index: -1;
+        }
+
+        .glitch-text::after {
+            animation: glitch2 2s infinite;
+            color: var(--glitch-2);
+            z-index: -2;
+        }
+
+        @keyframes glitchText {
+            0%, 90%, 100% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+        }
+
+        @keyframes glitch1 {
+            0%, 90%, 100% { transform: translate(0); }
+            20% { transform: translate(2px, -2px); }
+            40% { transform: translate(-2px, 2px); }
+            60% { transform: translate(-2px, -2px); }
+            80% { transform: translate(2px, 2px); }
+        }
+
+        @keyframes glitch2 {
+            0%, 90%, 100% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(-2px, -2px); }
+        }
+
+        .hero-subtitle {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: clamp(1.2rem, 4vw, 2rem);
+            background: var(--gradient-tech);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 30px;
+            animation: typeWriter 2s steps(30) 1s forwards;
+            overflow: hidden;
+            white-space: nowrap;
+            width: 0;
+        }
+
+        @keyframes typeWriter {
+            to { width: 100%; }
+        }
+
+        .hero-description {
+            font-size: 18px;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 40px;
+            opacity: 0;
+            animation: fadeInUp 1s ease 2s forwards;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 40px;
+            margin-bottom: 40px;
+            opacity: 0;
+            animation: fadeInUp 1s ease 2.5s forwards;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 32px;
+            font-weight: 700;
+            background: var(--gradient-tech);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: block;
+            line-height: 1;
+        }
+
+        .stat-label {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-top: 4px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            opacity: 0;
+            animation: fadeInUp 1s ease 3s forwards;
+        }
+
+        .btn-cyber {
+            position: relative;
+            padding: 16px 32px;
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 600;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 100%, 20px 100%);
+        }
+
+        .btn-cyber::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-tech);
+            transition: left 0.3s ease;
+        }
+
+        .btn-cyber span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .btn-cyber:hover::before {
+            left: 0;
+        }
+
+        .btn-cyber:hover {
+            color: var(--bg-dark);
+            box-shadow: 0 0 30px var(--primary);
+        }
+
+        .btn-ghost {
+            padding: 16px 24px;
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-ghost::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            transition: width 0.3s ease;
+        }
+
+        .btn-ghost:hover::before {
+            width: 100%;
+        }
+
+        .btn-ghost:hover {
+            color: var(--text-primary);
+            border-color: var(--primary);
+        }
+
+        /* Code Editor Mockup */
+        .code-editor {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        .editor-header {
+            background: var(--bg-dark);
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .editor-dots {
+            display: flex;
+            gap: 8px;
+        }
+
+        .editor-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .editor-dot.red { background: #ff5555; }
+        .editor-dot.yellow { background: #ffaa00; }
+        .editor-dot.green { background: #00ff88; }
+
+        .editor-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .editor-body {
+            padding: 20px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            line-height: 1.6;
+            min-height: 400px;
+        }
+
+        .code-line {
+            margin-bottom: 4px;
+            opacity: 0;
+            animation: codeType 0.5s ease forwards;
+        }
+
+        .line-number {
+            color: var(--text-muted);
+            margin-right: 20px;
+            user-select: none;
+        }
+
+        .keyword { color: #ff79c6; }
+        .string { color: #f1fa8c; }
+        .function { color: #50fa7b; }
+        .comment { color: var(--text-muted); }
+        .variable { color: #8be9fd; }
+
+        @keyframes codeType {
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Skills Section */
+        .section {
+            padding: 120px 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .section-title {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 20px;
+            background: var(--gradient-tech);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 18px;
+            margin-bottom: 80px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .skill-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+
+        .skill-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--gradient-tech);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .skill-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .skill-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+            box-shadow: 0 20px 40px rgba(0, 255, 136, 0.1);
+        }
+
+        .skill-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-tech);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .skill-icon::before {
+            content: '';
+            position: absolute;
+            inset: 2px;
+            background: var(--bg-card);
+            border-radius: 10px;
+        }
+
+        .skill-icon span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .skill-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .skill-description {
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .skill-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tech-tag {
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            color: var(--primary);
+            padding: 4px 12px;
+            border-radius: 16px;
+            font-size: 12px;
+            font-family: 'JetBrains Mono', monospace;
+            transition: all 0.3s ease;
+        }
+
+        .tech-tag:hover {
+            background: var(--primary);
+            color: var(--bg-dark);
+            transform: translateY(-2px);
+        }
+
+        /* Experience Timeline */
+        .timeline {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--gradient-tech);
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 50px;
+            display: flex;
+            align-items: center;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.6s ease;
+        }
+
+        .timeline-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content {
+            margin-right: auto;
+            margin-left: 0;
+        }
+
+        .timeline-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content {
+            margin-left: auto;
+            margin-right: 0;
+        }
+
+        .timeline-content {
+            width: 45%;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 30px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-content:hover {
+            border-color: var(--primary);
+            transform: scale(1.02);
+            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.1);
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 20px;
+            height: 20px;
+            background: var(--primary);
+            border: 4px solid var(--bg-darker);
+            border-radius: 50%;
+            z-index: 2;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 0 0 0 rgba(0, 255, 136, 0.4);
+            }
+            50% {
+                box-shadow: 0 0 0 20px rgba(0, 255, 136, 0);
+            }
+        }
+
+        .experience-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .experience-company {
+            color: var(--text-secondary);
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .experience-period {
+            color: var(--text-muted);
+            font-size: 14px;
+            font-family: 'JetBrains Mono', monospace;
+            margin-bottom: 16px;
+        }
+
+        .experience-description {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 40px;
+        }
+
+        .project-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--gradient-cyber);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .project-card:hover::before {
+            opacity: 0.05;
+        }
+
+        .project-card:hover {
+            transform: translateY(-15px);
+            border-color: var(--accent);
+            box-shadow: 0 25px 50px rgba(255, 51, 102, 0.2);
+        }
+
+        .project-header {
+            height: 200px;
+            background: var(--gradient-cyber);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-header::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.1) 50%, transparent 70%);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+
+        .project-card:hover .project-header::after {
+            transform: translateX(100%);
+        }
+
+        .project-body {
+            padding: 30px;
+            position: relative;
+        }
+
+        .project-title {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--accent);
+        }
+
+        .project-description {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .project-tech-tag {
+            background: rgba(255, 51, 102, 0.1);
+            border: 1px solid rgba(255, 51, 102, 0.3);
+            color: var(--accent);
+            padding: 6px 12px;
+            border-radius: 16px;
+            font-size: 12px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 12px;
+        }
+
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: 'JetBrains Mono', monospace;
+            transition: all 0.3s ease;
+        }
+
+        .project-link:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: rgba(255, 51, 102, 0.1);
+        }
+
+        /* Contact Section */
+        .contact-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .contact-content {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 60px 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-tech);
+        }
+
+        .contact-title {
+            font-size: 36px;
+            font-weight: 800;
+            margin-bottom: 16px;
+            background: var(--gradient-tech);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .contact-subtitle {
+            color: var(--text-secondary);
+            font-size: 18px;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .contact-item {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            border-color: var(--primary);
+            background: rgba(0, 255, 136, 0.05);
+            transform: translateY(-4px);
+        }
+
+        .contact-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--gradient-tech);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            margin: 0 auto 12px;
+            position: relative;
+        }
+
+        .contact-icon::before {
+            content: '';
+            position: absolute;
+            inset: 2px;
+            background: var(--bg-card);
+            border-radius: 10px;
+        }
+
+        .contact-icon span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .contact-label {
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: var(--text-primary);
+        }
+
+        .contact-value {
+            color: var(--text-secondary);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: var(--primary);
+            color: var(--bg-dark);
+            border-color: var(--primary);
+            transform: translateY(-4px);
+        }
+
+        /* Footer */
+        .footer {
+            padding: 40px 20px;
+            text-align: center;
+            border-top: 1px solid var(--border);
+            background: var(--bg-card);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .footer-text {
+            color: var(--text-muted);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+        }
+
+        .footer-heart {
+            color: var(--accent);
+            animation: heartBeat 2s ease infinite;
+        }
+
+        @keyframes heartBeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .hero-container {
+                grid-template-columns: 1fr;
+                gap: 60px;
+                text-align: center;
+            }
+
+            .hero-stats {
+                justify-content: center;
+            }
+
+            .timeline::before {
+                left: 20px;
+            }
+
+            .timeline-item {
+                flex-direction: row !important;
+            }
+
+            .timeline-content {
+                width: calc(100% - 60px);
+                margin-left: 60px !important;
+                margin-right: 0 !important;
+            }
+
+            .timeline-dot {
+                left: 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 10px 20px;
+                top: 20px;
+            }
+
+            .nav-links {
+                gap: 20px;
+            }
+
+            .nav-links a {
+                font-size: 12px;
+                padding: 6px 12px;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .hero-stats {
+                flex-wrap: wrap;
+                gap: 20px;
+            }
+
+            .skills-grid,
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-info {
+                grid-template-columns: 1fr;
+            }
+
+            .section {
+                padding: 80px 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .terminal-window {
+                width: 90%;
+                margin: 0 20px;
+            }
+
+            .contact-content {
+                padding: 40px 20px;
+            }
+
+            .project-card,
+            .skill-card {
+                margin: 0 10px;
+            }
+        }
+
+        /* Scroll Animations */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Selection Colors */
+        ::selection {
+            background: var(--primary);
+            color: var(--bg-dark);
+        }
+
+        ::-moz-selection {
+            background: var(--primary);
+            color: var(--bg-dark);
+        }
+
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-card);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--secondary);
+        }
+    </style>
+</head>
+<body>
+    <!-- Matrix Background -->
+    <div class="matrix-bg">
+        <canvas class="matrix-canvas"></canvas>
+    </div>
+
+    <!-- Animated Grid -->
+    <div class="grid-bg"></div>
+
+    <!-- Floating Particles -->
+    <div class="particles"></div>
+
+    <!-- Terminal Loading Screen -->
+    <div class="terminal-loader" id="terminal-loader">
+        <div class="terminal-window">
+            <div class="terminal-header">
+                <div class="terminal-dot red"></div>
+                <div class="terminal-dot yellow"></div>
+                <div class="terminal-dot green"></div>
+            </div>
+            <div class="terminal-body">
+                <div class="terminal-line" style="animation-delay: 0.5s;">Initializing Cloud DevOps Environment...</div>
+                <div class="terminal-line" style="animation-delay: 1s;">Loading Kubernetes clusters...</div>
+                <div class="terminal-line" style="animation-delay: 1.5s;">Configuring CI/CD pipelines...</div>
+                <div class="terminal-line" style="animation-delay: 2s;">Deploying infrastructure...</div>
+                <div class="terminal-line" style="animation-delay: 2.5s;">Welcome to Ziad's Portfolio</div>
+                <div class="terminal-line" style="animation-delay: 3s;">Ready to explore!<span class="terminal-cursor"></span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <ul class="nav-links">
+            <li><a href="#home" class="active"><span>Home</span></a></li>
+            <li><a href="#skills"><span>Skills</span></a></li>
+            <li><a href="#experience"><span>Experience</span></a></li>
+            <li><a href="#projects"><span>Projects</span></a></li>
+            <li><a href="#contact"><span>Contact</span></a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1 class="glitch-text" data-text="ZIAD MOHAMAD">ZIAD MOHAMAD</h1>
+                <h2 class="hero-subtitle">Cloud DevOps Engineer</h2>
+                <p class="hero-description">
+                    Passionate about automating infrastructure, streamlining deployments, and building scalable cloud solutions. 
+                    I transform complex systems into elegant, efficient architectures that power modern applications.
+                </p>
+                
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">5+</span>
+                        <div class="stat-label">Years Experience</div>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">50+</span>
+                        <div class="stat-label">Projects Delivered</div>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">99.9%</span>
+                        <div class="stat-label">Uptime Achieved</div>
+                    </div>
+                </div>
+
+                <div class="hero-buttons">
+                    <a href="#contact" class="btn-cyber">
+                        <span>Get In Touch</span>
+                    </a>
+                    <a href="#projects" class="btn-ghost">View Projects</a>
+                </div>
+            </div>
+
+            <div class="code-editor">
+                <div class="editor-header">
+                    <div class="editor-dots">
+                        <div class="editor-dot red"></div>
+                        <div class="editor-dot yellow"></div>
+                        <div class="editor-dot green"></div>
+                    </div>
+                    <div class="editor-title">kubernetes-deployment.yaml</div>
+                </div>
+                <div class="editor-body">
+                    <div class="code-line" style="animation-delay: 4s;">
+                        <span class="line-number">1</span>
+                        <span class="keyword">apiVersion:</span> <span class="string">apps/v1</span>
+                    </div>
+                    <div class="code-line" style="animation-delay: 4.2s;">
+                        <span class="line-number">2</span>
+                        <span class="keyword">kind:</span> <span class="string">Deployment</span>
+                    </div>
+                    <div class="code-line" style="animation-delay: 4.4s;">
+                        <span class="line-number">3</span>
+                        <span class="keyword">metadata:</span>
+                    </div>
+                    <div class="code-line" style="animation-delay: 4.6s;">
+                        <span class="line-number">4</span>
+                        &nbsp;&nbsp;<span class="keyword">name:</span> <span class="string">devops-app</span>
+                    </div>
+                    <div class="code-line" style="animation-delay: 4.8s;">
+                        <span class="line-number">5</span>
+                        <span class="keyword">spec:</span>
+                    </div>
+                    <div class="code-line" style="animation-delay: 5s;">
+                        <span class="line-number">6</span>
+                        &nbsp;&nbsp;<span class="keyword">replicas:</span> <span class="variable">3</span>
+                    </div>
+                    <div class="code-line" style="animation-delay: 5.2s;">
+                        <span class="line-number">7</span>
+                        &nbsp;&nbsp;<span class="keyword">selector:</span>
+                    </div>
+                    <div class="code-line" style="animation-delay: 5.4s;">
+                        <span class="line-number">8</span>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">matchLabels:</span>
+                    </div>
+                    <div class="code-line" style="animation-delay: 5.6s;">
+                        <span class="line-number">9</span>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">app:</span> <span class="string">devops-app</span>
+                    </div>
+                    <div class="code-line" style="animation-delay: 5.8s;">
+                        <span class="line-number">10</span>
+                        <span class="comment"># Automated by Ziad's DevOps Pipeline</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="section">
+        <h2 class="section-title">Technical Arsenal</h2>
+        <p class="section-subtitle">Cutting-edge tools and technologies I master</p>
+        
+        <div class="skills-grid">
+            <div class="skill-card fade-in-up">
+                <div class="skill-icon">
+                    <span>☁️</span>
+                </div>
+                <h3 class="skill-title">Cloud Platforms</h3>
+                <p class="skill-description">
+                    Expert in designing and managing cloud infrastructure across multiple platforms
+                </p>
+                <div class="skill-tech">
+                    <span class="tech-tag">AWS</span>
+                    <span class="tech-tag">Azure</span>
+                    <span class="tech-tag">GCP</span>
+                    <span class="tech-tag">DigitalOcean</span>
+                </div>
+            </div>
+
+            <div class="skill-card fade-in-up">
+                <div class="skill-icon">
+                    <span>🐳</span>
+                </div>
+                <h3 class="skill-title">Containerization</h3>
+                <p class="skill-description">
+                    Building scalable containerized applications with orchestration
+                </p>
+                <div class="skill-tech">
+                    <span class="tech-tag">Docker</span>
+                    <span class="tech-tag">Kubernetes</span>
+                    <span class="tech-tag">Helm</span>
+                    <span class="tech-tag">Podman</span>
+                </div>
+            </div>
+
+            <div class="skill-card fade-in-up">
+                <div class="skill-icon">
+                    <span>🔧</span>
+                </div>
+                <h3 class="skill-title">Infrastructure as Code</h3>
+                <p class="skill-description">
+                    Automating infrastructure provisioning and configuration management
+                </p>
+                <div class="skill-tech">
+                    <span class="tech-tag">Terraform</span>
+                    <span class="tech-tag">Ansible</span>
+                    <span class="tech-tag">CloudFormation</span>
+                    <span class="tech-tag">Pulumi</span>
+                </div>
+            </div>
+
+            <div class="skill-card fade-in-up">
+                <div class="skill-icon">
+                    <span>🚀</span>
+                </div>
+                <h3 class="skill-title">CI/CD Pipelines</h3>
+                <p class="skill-description">
+                    Streamlining deployment processes with automated testing and delivery
+                </p>
+                <div class="skill-tech">
+                    <span class="tech-tag">Jenkins</span>
+                    <span class="tech-tag">GitLab CI</span>
+                    <span class="tech-tag">GitHub Actions</span>
+                    <span class="tech-tag">Azure DevOps</span>
+                </div>
+            </div>
+
+            <div class="skill-card fade-in-up">
+                <div class="skill-icon">
+                    <span>📊</span>
+                </div>
+                <h3 class="skill-title">Monitoring & Logging</h3>
+                <p class="skill-description">
+                    Comprehensive observability solutions for system health and performance
+                </p>
+                <div class="skill-tech">
+                    <span class="tech-tag">Prometheus</span>
+                    <span class="tech-tag">Grafana</span>
+                    <span class="tech-tag">ELK Stack</span>
+                    <span class="tech-tag">DataDog</span>
+                </div>
+            </div>
+
+            <div class="skill-card fade-in-up">
+                <div class="skill-icon">
+                    <span>🔒</span>
+                </div>
+                <h3 class="skill-title">Security & Compliance</h3>
+                <p class="skill-description">
+                    Implementing security best practices and compliance frameworks
+                </p>
+                <div class="skill-tech">
+                    <span class="tech-tag">HashiCorp Vault</span>
+                    <span class="tech-tag">OWASP</span>
+                    <span class="tech-tag">SonarQube</span>
+                    <span class="tech-tag">Snyk</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="section">
+        <h2 class="section-title">Professional Journey</h2>
+        <p class="section-subtitle">Building the future, one deployment at a time</p>
+        
+        <div class="timeline">
+            <div class="timeline-item fade-in-up">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <h3 class="experience-title">Senior DevOps Engineer</h3>
+                    <div class="experience-company">TechCorp Solutions</div>
+                    <div class="experience-period">2022 - Present</div>
+                    <p class="experience-description">
+                        Leading cloud migration initiatives and implementing robust CI/CD pipelines. 
+                        Reduced deployment time by 75% and improved system reliability to 99.9% uptime. 
+                        Managing multi-cloud infrastructure serving 1M+ users.
+                    </p>
+                </div>
+            </div>
+
+            <div class="timeline-item fade-in-up">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <h3 class="experience-title">DevOps Engineer</h3>
+                    <div class="experience-company">CloudTech Innovations</div>
+                    <div class="experience-period">2020 - 2022</div>
+                    <p class="experience-description">
+                        Architected containerized microservices infrastructure using Kubernetes. 
+                        Implemented Infrastructure as Code reducing provisioning time by 60%. 
+                        Built comprehensive monitoring solutions with Prometheus and Grafana.
+                    </p>
+                </div>
+            </div>
+
+            <div class="timeline-item fade-in-up">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <h3 class="experience-title">Systems Administrator</h3>
+                    <div class="experience-company">DataFlow Systems</div>
+                    <div class="experience-period">2019 - 2020</div>
+                    <p class="experience-description">
+                        Managed on-premise infrastructure and initiated cloud adoption strategies. 
+                        Automated routine tasks with Ansible reducing manual intervention by 80%. 
+                        Established backup and disaster recovery procedures.
+                    </p>
+                </div>
+            </div>
+
+            <div class="timeline-item fade-in-up">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <h3 class="experience-title">Junior DevOps Engineer</h3>
+                    <div class="experience-company">StartupTech</div>
+                    <div class="experience-period">2018 - 2019</div>
+                    <p class="experience-description">
+                        Started my DevOps journey by implementing basic CI/CD pipelines. 
+                        Learned containerization technologies and cloud fundamentals. 
+                        Collaborated with development teams to streamline deployment processes.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="section">
+        <h2 class="section-title">Featured Projects</h2>
+        <p class="section-subtitle">Innovative solutions that drive business transformation</p>
+        
+        <div class="projects-grid">
+            <div class="project-card fade-in-up">
+                <div class="project-header">
+                    <span>🏗️</span>
+                </div>
+                <div class="project-body">
+                    <h3 class="project-title">Cloud Migration Platform</h3>
+                    <p class="project-description">
+                        Comprehensive cloud migration solution that automated the transition of 200+ legacy applications 
+                        to AWS, reducing migration time by 70% and operational costs by 40%.
+                    </p>
+                    <div class="project-tech">
+                        <span class="project-tech-tag">AWS</span>
+                        <span class="project-tech-tag">Terraform</span>
+                        <span class="project-tech-tag">Docker</span>
+                        <span class="project-tech-tag">Jenkins</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="project-link">
+                            <span>🔗</span>
+                            Live Demo
+                        </a>
+                        <a href="#" class="project-link">
+                            <span>📁</span>
+                            GitHub
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card fade-in-up">
+                <div class="project-header">
+                    <span>🚀</span>
+                </div>
+                <div class="project-body">
+                    <h3 class="project-title">Multi-Cloud Orchestrator</h3>
+                    <p class="project-description">
+                        Advanced orchestration platform managing workloads across AWS, Azure, and GCP. 
+                        Features auto-scaling, cost optimization, and disaster recovery capabilities.
+                    </p>
+                    <div class="project-tech">
+                        <span class="project-tech-tag">Kubernetes</span>
+                        <span class="project-tech-tag">Helm</span>
+                        <span class="project-tech-tag">Prometheus</span>
+                        <span class="project-tech-tag">Go</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="project-link">
+                            <span>🔗</span>
+                            Live Demo
+                        </a>
+                        <a href="#" class="project-link">
+                            <span>📁</span>
+                            GitHub
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card fade-in-up">
+                <div class="project-header">
+                    <span>📊</span>
+                </div>
+                <div class="project-body">
+                    <h3 class="project-title">Observability Stack</h3>
+                    <p class="project-description">
+                        Complete monitoring and logging solution with custom dashboards, alerting, and 
+                        AI-powered anomaly detection. Processes 10TB+ of logs daily.
+                    </p>
+                    <div class="project-tech">
+                        <span class="project-tech-tag">ELK Stack</span>
+                        <span class="project-tech-tag">Grafana</span>
+                        <span class="project-tech-tag">Fluentd</span>
+                        <span class="project-tech-tag">Python</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="project-link">
+                            <span>🔗</span>
+                            Live Demo
+                        </a>
+                        <a href="#" class="project-link">
+                            <span>📁</span>
+                            GitHub
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card fade-in-up">
+                <div class="project-header">
+                    <span>🔒</span>
+                </div>
+                <div class="project-body">
+                    <h3 class="project-title">Security Automation Suite</h3>
+                    <p class="project-description">
+                        Automated security scanning and compliance checking integrated into CI/CD pipelines. 
+                        Reduced security vulnerabilities by 90% with zero-trust architecture implementation.
+                    </p>
+                    <div class="project-tech">
+                        <span class="project-tech-tag">HashiCorp Vault</span>
+                        <span class="project-tech-tag">OWASP ZAP</span>
+                        <span class="project-tech-tag">SonarQube</span>
+                        <span class="project-tech-tag">Ansible</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="project-link">
+                            <span>🔗</span>
+                            Live Demo
+                        </a>
+                        <a href="#" class="project-link">
+                            <span>📁</span>
+                            GitHub
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+        <h2 class="section-title">Let's Build Something</h2>
+        <p class="section-subtitle">Ready to transform your infrastructure? Let's connect!</p>
+        
+        <div class="contact-container">
+            <div class="contact-content fade-in-up">
+                <h3 class="contact-title">Get In Touch</h3>
+                <p class="contact-subtitle">
+                    Whether you need cloud migration, DevOps consultation, or infrastructure optimization, 
+                    I'm here to help scale your business to new heights.
+                </p>
+                
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <span>📧</span>
+                        </div>
+                        <div class="contact-label">Email</div>
+                        <div class="contact-value">ziad.mohamad@devops.com</div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <span>📱</span>
+                        </div>
+                        <div class="contact-label">Phone</div>
+                        <div class="contact-value">+1 (555) 123-4567</div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <span>📍</span>
+                        </div>
+                        <div class="contact-label">Location</div>
+                        <div class="contact-value">San Francisco, CA</div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <span>🌐</span>
+                        </div>
+                        <div class="contact-label">Availability</div>
+                        <div class="contact-value">Open for opportunities</div>
+                    </div>
+                </div>
+                
+                <div class="social-links">
+                    <a href="#" class="social-link" title="LinkedIn">
+                        <span>💼</span>
+                    </a>
+                    <a href="#" class="social-link" title="GitHub">
+                        <span>🐱</span>
+                    </a>
+                    <a href="#" class="social-link" title="Twitter">
+                        <span>🐦</span>
+                    </a>
+                    <a href="#" class="social-link" title="Medium">
+                        <span>📝</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p class="footer-text">
+                Made with <span class="footer-heart">❤️</span> and ☕ by Ziad Mohamad • © 2024
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Matrix Rain Effect
+        function createMatrixRain() {
+            const canvas = document.querySelector('.matrix-canvas');
+            const ctx = canvas.getContext('2d');
+            
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            
+            const matrix = "ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()*&^%+-/~{[|`]}";
+            const matrixArray = matrix.split("");
+            
+            const fontSize = 10;
+            const columns = canvas.width / fontSize;
+            const drops = [];
+            
+            for (let x = 0; x < columns; x++) {
+                drops[x] = 1;
+            }
+            
+            function draw() {
+                ctx.fillStyle = 'rgba(5, 5, 8, 0.04)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                
+                ctx.fillStyle = '#00ff88';
+                ctx.font = fontSize + 'px monospace';
+                
+                for (let i = 0; i < drops.length; i++) {
+                    const text = matrixArray[Math.floor(Math.random() * matrixArray.length)];
+                    ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                    
+                    if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                        drops[i] = 0;
+                    }
+                    drops[i]++;
+                }
+            }
+            
+            setInterval(draw, 35);
+        }
+
+        // Create Floating Particles
+        function createParticles() {
+            const particlesContainer = document.querySelector('.particles');
+            
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Terminal Loading Animation
+        function initTerminalLoader() {
+            setTimeout(() => {
+                document.getElementById('terminal-loader').classList.add('hidden');
+            }, 4000);
+        }
+
+        // Scroll Animations
+        function handleScrollAnimations() {
+            const elements = document.querySelectorAll('.fade-in-up, .timeline-item');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            elements.forEach(el => observer.observe(el));
+        }
+
+        // Smooth Scrolling for Navigation
+        function initSmoothScrolling() {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        }
+        
+        // Matrix Rain Effect
+        createMatrixRain();
+        
+        // Floating Particles
+        createParticles();
+        
+        // Terminal Loading Animation   
+        initTerminalLoader();
+        
+        // Scroll Animations
+        handleScrollAnimations();
+        
+        // Smooth Scrolling for Navigation
+        initSmoothScrolling();
+    </script>
+</body>
+</html>
