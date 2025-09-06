@@ -20,8 +20,8 @@ const projectsData = [
     description:
       "A personal finance web app to track income and expenses with categories, charts, and persistent storage. Built to practice CRUD operations and database management.",
     tech: ["Next.js"],
-    liveDemo: "#",
-    github: "https://expense-tracker-final-one.vercel.app/",
+    liveDemo: "https://expense-tracker-final-one.vercel.app/",
+    github: "#",
   },
   {
     icon: "/images/projects/ai.png",
@@ -106,12 +106,14 @@ const Projects = () => {
                 <Link
                   href={project.liveDemo}
                   className="project-link flex items-center gap-1 hover:underline"
+                  target="_blank"
                 >
                   🔗 Live Demo
                 </Link>
                 <Link
                   href={project.github}
                   className="project-link flex items-center gap-1 hover:underline"
+                  target="_blank"
                 >
                   📁 GitHub
                 </Link>
