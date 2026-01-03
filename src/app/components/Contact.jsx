@@ -98,7 +98,7 @@ const Contact = () => {
             </Link>
 
             <Link
-              href="https://instagram.com/ziadmohamad_"
+              href="https://www.instagram.com/ziad16005/"
               className="social-link hover:text-pink-500 transition-colors"
               target="_blank"
               title="Instagram"
