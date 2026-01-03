@@ -24,13 +24,14 @@ const projectsData = [
     github: "#",
   },
   {
-    icon: "/images/projects/ai.png",
-    title: "Artificial Neural Network Model",
-    description:
-      "A Python-based machine learning model designed for classification tasks, showcasing strong foundations in AI and data processing.",
-    tech: ["Python", "NumPy", "Machine Learning"],
-    liveDemo: "#",
-    github: "#",
+    icon: "/images/projects/movie-app.png",
+    title: "Movies Web Application",
+   description:
+  "A responsive React Movie Web App built with React 18, React Router v6, Context API, and custom hooks. Users can browse, search, and favorite movies with dynamic routing, global state management, and local storage persistence. Features include reusable components, responsive design with Bootstrap 5, and performance optimizations like lazy loading and memoization, demonstrating proficiency in modern React concepts such as hooks, props, JSX, and state management."
+,
+    tech: ["React js", "Bootstrap"],
+    liveDemo: "https://movie-app-six-chi-82.vercel.app/",
+    github: "https://github.com/ziad202211/Movie-app",
   },
   {
     icon: "/images/projects/iwan.png",
@@ -48,6 +49,15 @@ const projectsData = [
     "A professional real estate company landing page built to support digital marketing campaigns. Highlights property offerings with a responsive design, intuitive navigation, and optimized performance across all devices.",
     tech: ["Next js", "Supabase", "Tailwind CSS"],
     liveDemo: "https://ghinna.vercel.app/",
+    github: "#",
+  },
+  {
+    icon: "/images/projects/ai.png",
+    title: "Artificial Neural Network Model",
+    description:
+      "A Python-based machine learning model designed for classification tasks, showcasing strong foundations in AI and data processing.",
+    tech: ["Python", "NumPy", "Machine Learning"],
+    liveDemo: "#",
     github: "#",
   },
 ];
