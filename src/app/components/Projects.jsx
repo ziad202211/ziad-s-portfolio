@@ -33,12 +33,21 @@ const projectsData = [
     github: "#",
   },
   {
-    icon: "/images/projects/game.png",
-    title: "2D Shooter Game",
+    icon: "/images/projects/iwan.png",
+    title: "Iwan Design House - interior design company website",
     description:
-      "An interactive 2D game developed with OpenGL and GLUT, featuring character movement, shooting mechanics, scoring, and animations.",
-    tech: ["C++", "OpenGL", "GLUT"],
-    liveDemo: "#",
+      "A professional interior design company website designed to enhance brand presence and support marketing efforts. Features a clean, responsive layout, project showcases, and smooth user experience optimized for all devices.",
+    tech: ["Next js", "Supabase", "Tailwind CSS"],
+    liveDemo: "https://iwan-interior.vercel.app/",
+    github: "#",
+  },
+  {
+    icon: "/images/projects/ghina.png",
+    title: "Ghinna Towers Real Estate - real estate company landing page",
+    description:
+    "A professional real estate company landing page built to support digital marketing campaigns. Highlights property offerings with a responsive design, intuitive navigation, and optimized performance across all devices.",
+    tech: ["Next js", "Supabase", "Tailwind CSS"],
+    liveDemo: "https://ghinna.vercel.app/",
     github: "#",
   },
 ];

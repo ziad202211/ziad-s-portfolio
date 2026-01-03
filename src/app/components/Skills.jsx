@@ -13,7 +13,7 @@ const skillsData = [
     icon: '🗄️',
     title: 'Databases',
     description: 'Designing, managing, and querying relational and NoSQL databases',
-    tech: ['SQL','MySQL', 'Oracle DB', 'WAMP', 'MongoDB'],
+    tech: ['SQL','MySQL', 'Oracle DB', 'WAMP', 'MongoDB','supabase'],
   },
   {
     icon: '☁️',
@@ -25,7 +25,7 @@ const skillsData = [
     icon: '🤖',
     title: 'Artificial Intelligence',
     description: 'Designing and implementing AI/ML models for classification and automation tasks',
-    tech: ['Python', 'Machine Learning', 'Neural Networks'],
+    tech: ['Python', 'Machine Learning', 'Neural Networks','n8n (AI Automation & LLM Orchestration)'],
   },
   {
     icon: '🎮',
@@ -48,6 +48,7 @@ const skillsData = [
       'Mocha',
       'Cursor',
       'Windsurf',
+      'antigravity',
     ],
   },
   {
