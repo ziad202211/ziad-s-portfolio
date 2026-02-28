@@ -37,15 +37,16 @@ const skillsData = [
     icon: '🎨',
     title: 'UI/UX Design',
     description: 'Prototyping and designing user-friendly interfaces with modern tools',
-    tech: ['Figma', 'Adobe XD'],
+    tech: ['Figma', 'Adobe XD','Stitch AI'],
   },
   {
     icon: '⚡',
-    title: 'AI Builders',
+    title: 'AI Builders / Dev Tools',
     description: 'Exploring modern AI development tools and copilots for productivity',
     tech: [
       'Bolt',
       'Mocha',
+      'Lovable',
       'Cursor',
       'Windsurf',
       'antigravity',

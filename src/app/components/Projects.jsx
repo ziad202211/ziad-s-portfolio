@@ -6,12 +6,21 @@ import Image from "next/image";
 
 const projectsData = [
   {
-    icon: "/images/projects/doctor.png",
-    title: "Doctor Appointment Web App",
+    icon: "/images/projects/super-saiyan.png",
+    title: "Super-Saiyan",
     description:
-      "A full-stack web application for booking doctor appointments with user authentication, scheduling, and form validation. Improved efficiency by automating manual booking tasks.",
-    tech: ["HTML", "CSS", "JavaScript", "PHP", "Laravel", "MySQL"],
-    liveDemo: "#",
+      "Took ownership of the Super-saiyan website after the initial version was developed by Eng. Hussien Khaled, leading the next phase of technical improvements and feature expansion. Enhanced the Supabase database structure, integrated a payment gateway, implemented new business requirements, refined UI components, and optimized overall performance. Built with React.js, backed by Supabase, and deployed on Vercel across two live instances.",
+    tech: ["Reac.js", "Supabase", "Vercel" , "Tailwind CSS"],
+    liveDemo: "https://www.super-saiyan.fit/",
+    github: "",
+  },
+  {
+    icon: "/images/projects/iwan.png",
+    title: "Iwan Design House - interior design company website",
+    description:
+      "A professional interior design company website designed to enhance brand presence and support marketing efforts. Features a clean, responsive layout, project showcases, and smooth user experience optimized for all devices.",
+    tech: ["Next js", "Supabase", "Tailwind CSS"],
+    liveDemo: "https://iwan-interior.vercel.app/",
     github: "#",
   },
   {
@@ -24,6 +33,15 @@ const projectsData = [
     github: "#",
   },
   {
+    icon: "/images/projects/doctor.png",
+    title: "Doctor Appointment Web App",
+    description:
+      "A full-stack web application for booking doctor appointments with user authentication, scheduling, and form validation. Improved efficiency by automating manual booking tasks.",
+    tech: ["HTML", "CSS", "JavaScript", "PHP", "Laravel", "MySQL"],
+    liveDemo: "",
+    github: "",
+  },
+  {
     icon: "/images/projects/movie-app.png",
     title: "Movies Web Application",
    description:
@@ -34,21 +52,21 @@ const projectsData = [
     github: "https://github.com/ziad202211/Movie-app",
   },
   {
-    icon: "/images/projects/iwan.png",
-    title: "Iwan Design House - interior design company website",
-    description:
-      "A professional interior design company website designed to enhance brand presence and support marketing efforts. Features a clean, responsive layout, project showcases, and smooth user experience optimized for all devices.",
-    tech: ["Next js", "Supabase", "Tailwind CSS"],
-    liveDemo: "https://iwan-interior.vercel.app/",
-    github: "#",
-  },
-  {
     icon: "/images/projects/ghina.png",
     title: "Ghinna Towers Real Estate - real estate company landing page",
     description:
     "A professional real estate company landing page built to support digital marketing campaigns. Highlights property offerings with a responsive design, intuitive navigation, and optimized performance across all devices.",
     tech: ["Next js", "Supabase", "Tailwind CSS"],
     liveDemo: "https://ghinna.vercel.app/",
+    github: "#",
+  },
+  {
+    icon: "/images/projects/Faris.png",
+    title: "Faris for Architectural Development",
+    description:
+      "Developed a modern company website for Faris, featuring a fully functional admin dashboard for content management.Built using React.js with Supabase for backend services and real-time database integration.The system allows dynamic content updates, secure data handling, and scalable architecture for future growth.",
+    tech: ["Reac.js", "Supabase", "Vercel" , "Tailwind CSS"],
+    liveDemo: "https://faris-jet.vercel.app/",
     github: "#",
   },
   {
@@ -122,20 +140,32 @@ const Projects = () => {
               </div>
 
               <div className="project-links flex gap-4 mt-4">
-                <Link
-                  href={project.liveDemo}
-                  className="project-link flex items-center gap-1 hover:underline"
-                  target="_blank"
-                >
-                  🔗 Live Demo
-                </Link>
-                <Link
-                  href={project.github}
-                  className="project-link flex items-center gap-1 hover:underline"
-                  target="_blank"
-                >
-                  📁 GitHub
-                </Link>
+                {project.liveDemo && project.liveDemo !== "#" ? (
+                  <Link
+                    href={project.liveDemo}
+                    className="project-link flex items-center gap-1 hover:underline"
+                    target="_blank"
+                  >
+                    🔗 Live Demo
+                  </Link>
+                ) : (
+                  <span className="project-link flex items-center gap-1 text-gray-500 cursor-not-allowed">
+                    🔗 Live Demo
+                  </span>
+                )}
+                {project.github && project.github !== "#" ? (
+                  <Link
+                    href={project.github}
+                    className="project-link flex items-center gap-1 hover:underline"
+                    target="_blank"
+                  >
+                    📁 GitHub
+                  </Link>
+                ) : (
+                  <span className="project-link flex items-center gap-1 text-gray-500 cursor-not-allowed">
+                    📁 GitHub
+                  </span>
+                )}
               </div>
             </div>
           </div>
