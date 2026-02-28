@@ -20,7 +20,7 @@ const projectsData = [
     description:
       "A professional interior design company website designed to enhance brand presence and support marketing efforts. Features a clean, responsive layout, project showcases, and smooth user experience optimized for all devices.",
     tech: ["Next js", "Supabase", "Tailwind CSS"],
-    liveDemo: "https://iwan-interior.vercel.app/",
+    liveDemo: "https://www.iwandesignhouse.com/",
     github: "#",
   },
   {
